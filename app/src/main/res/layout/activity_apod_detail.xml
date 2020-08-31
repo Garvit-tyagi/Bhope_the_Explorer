@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    tools:context=".apod_detail">
+
+    <RelativeLayout
+        android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+<ProgressBar
+    android:id="@+id/progress_bar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:scrollbarSize="30sp"
+    android:indeterminateTint="#fff"/>
+        <ImageView
+            android:id="@+id/apod_image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+
+            />
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <VideoView
+            android:id="@+id/apod_video"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="invisible"
+            />
+</FrameLayout>
+
+        <TextView
+            android:id="@+id/apod_title"
+            android:padding="8dp"
+            android:layout_below="@+id/apod_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="TITLE"
+            android:textSize="30dp"
+            android:textStyle="italic"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#fff"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/apod_description"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:fontFamily="cursive"
+            android:layout_below="@+id/apod_title"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            tools:text="description"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+</ScrollView>
