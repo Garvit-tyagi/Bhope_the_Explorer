@@ -24,4 +24,13 @@
         android:layout_below="@+id/date_tv"
         android:layout_centerHorizontal="true"
         android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/btn_explore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Explore Inside"
+        android:layout_below="@+id/btn_apod"
+        android:layout_marginTop="120sp"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

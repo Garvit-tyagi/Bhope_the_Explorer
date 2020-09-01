@@ -19,6 +19,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener {
  private TextView date_tv;
  private Button btn_apod;
+ private Button btn_explore;
 public static final String EXTRADATE="extradate";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public static final String EXTRADATE="extradate";
         setContentView(R.layout.activity_main);
         date_tv=findViewById(R.id.date_tv);
         btn_apod=findViewById(R.id.btn_apod);
+        btn_explore=findViewById(R.id.btn_explore);
         Calendar c=Calendar.getInstance();
         date_tv.setText(c.YEAR+"-"+c.MONTH+"-"+c.DAY_OF_MONTH);
 
@@ -43,6 +45,14 @@ public static final String EXTRADATE="extradate";
                 Intent i=new Intent(MainActivity.this,apod_detail.class);
                 i.putExtra(EXTRADATE,date_tv.getText().toString());
                 startActivity(i);
+            }
+        });
+        btn_explore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,exploreInside.class);
+                startActivity(intent);
+
             }
         });
 
