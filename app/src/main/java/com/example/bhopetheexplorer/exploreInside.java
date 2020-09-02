@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.textclassifier.TextLinks;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,6 +35,8 @@ private RecyclerView recyclerView;
 private exploreInsideAdapter adapter;
 private RequestQueue mqueue;
 private ArrayList<recyclerview_item> mList;
+private String url;
+private ProgressBar loader;
 public static final String NASAID="nasaid";
 public static final String MEDIATYPE="mediatype";
 EditText SearchText;
@@ -41,13 +45,16 @@ EditText SearchText;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore_inside);
+
         recyclerView=findViewById(R.id.recycler_view);
-
-
+loader=findViewById(R.id.pb);
+loader.setVisibility(View.VISIBLE);
+getSupportActionBar().hide();
         recyclerView.setLayoutManager(new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false));
         SearchText=findViewById(R.id.edit_text);
         mqueue= Volley.newRequestQueue(this);
         mList=new ArrayList<>();
+        url="https://images-api.nasa.gov/search?q=sun";
         jsonParse();
         SearchText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -63,6 +70,11 @@ EditText SearchText;
             @Override
             public void afterTextChanged(Editable s) {
                 Log.i(TAG,s.toString());
+                loader.setVisibility(View.VISIBLE);
+                mList.clear();
+                String s1=s.toString();
+                url="https://images-api.nasa.gov/search?q="+s1;
+                jsonParse();
 
 
             }
@@ -70,12 +82,13 @@ EditText SearchText;
 
     }
     private void jsonParse(){
-        String url="https://images-api.nasa.gov/search?q=moon";
+
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            loader.setVisibility(View.INVISIBLE);
                             JSONObject jsonObject=response.getJSONObject("collection");
                             JSONArray jsonArray=jsonObject.getJSONArray("items");
 
@@ -84,13 +97,15 @@ EditText SearchText;
                                 JSONArray data=items.getJSONArray("data");
                                 JSONObject obj=data.getJSONObject(0);
                                 String title=obj.getString("title");
-
-
                                 String nasa_id=obj.getString("nasa_id");
                                 String media_type=obj.getString("media_type");
+
+
                                 JSONArray links=items.getJSONArray("links");
+
                                 JSONObject obj2=links.getJSONObject(0);
                                 String href=obj2.getString("href");
+                                Log.i(TAG,"bnc"+links.length());
                                 Log.i(TAG,nasa_id);
                                 Log.i(TAG,title);
 
@@ -126,6 +141,11 @@ EditText SearchText;
 
     @Override
     public void onItemClick(int position) {
-Toast.makeText(this,"touched",Toast.LENGTH_SHORT).show();
+//      Toast.makeText(this,"touched",Toast.LENGTH_SHORT).show();
+      recyclerview_item current_item=mList.get(position);
+      Intent i=new Intent(exploreInside.this,finalDisplay.class);
+      i.putExtra(NASAID,current_item.getNasa_id());
+      i.putExtra(MEDIATYPE,current_item.getMedia_type());
+      startActivity(i);
     }
 }

@@ -29,7 +29,8 @@ public static final String EXTRADATE="extradate";
         btn_apod=findViewById(R.id.btn_apod);
         btn_explore=findViewById(R.id.btn_explore);
         Calendar c=Calendar.getInstance();
-        date_tv.setText(c.YEAR+"-"+c.MONTH+"-"+c.DAY_OF_MONTH);
+        int month=c.get(Calendar.MONTH)+1;
+        date_tv.setText(c.get(Calendar.YEAR)+"-"+month+"-"+c.get(Calendar.DAY_OF_MONTH));
 
         date_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +61,7 @@ public static final String EXTRADATE="extradate";
 
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-
-        date_tv.setText(year + "-" + month + "-" +dayOfMonth);
+int m=month+1;
+        date_tv.setText(year + "-" + m + "-" +dayOfMonth);
     }
 }
