@@ -61,16 +61,25 @@ private RequestQueue mqueue;
                             loader.setVisibility(View.INVISIBLE);
                             JSONObject jsonObject=response.getJSONObject("collection");
                             JSONArray jsonArray=jsonObject.getJSONArray("items");
-                            JSONObject object=jsonArray.getJSONObject(1);
-                             String imageurl=object.getString("href").replace("http","https");
+//                            JSONObject object=jsonArray.getJSONObject(1);
+//                             String imageurl=object.getString("href").replace("http","https");
+                            String imageurl="";
+                             for(int i=0;i<jsonArray.length();i++){
+                                 JSONObject object1=jsonArray.getJSONObject(i);
+                                 String s=object1.getString("href").replace("http","https");
+                                 if(s.contains(".jpg")){
+                                     imageurl=s;
+                                     break;
+                                 }
+                             }
 
                              Log.i(TAG,imageurl);
-//                             if(!imageurl.contains("mp4")) {
+
 
 
                                  Picasso.with(finalDisplay.this).load(imageurl).placeholder(R.drawable.ic_launcher_foreground)
                                          .fit().centerCrop().into(imageView);
-//                             }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
