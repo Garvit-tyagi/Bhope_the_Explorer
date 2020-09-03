@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -66,7 +67,9 @@ private RequestQueue mqueue;
                              Log.i(TAG,imageurl);
 //                             if(!imageurl.contains("mp4")) {
 
-                                 Picasso.with(finalDisplay.this).load(imageurl).fit().placeholder(R.drawable.ic_launcher_foreground).centerCrop().into(imageView);
+
+                                 Picasso.with(finalDisplay.this).load(imageurl).placeholder(R.drawable.ic_launcher_foreground)
+                                         .fit().centerCrop().into(imageView);
 //                             }
 
                         } catch (JSONException e) {

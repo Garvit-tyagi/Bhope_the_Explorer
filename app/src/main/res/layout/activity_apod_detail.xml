@@ -20,27 +20,38 @@
     android:layout_centerVertical="true"
     android:scrollbarSize="30sp"
     android:indeterminateTint="#fff"/>
+
+        <RelativeLayout
+            android:id="@+id/rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/apod_image"
             android:layout_width="match_parent"
             android:layout_height="300dp"
 
             />
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-        <VideoView
-            android:id="@+id/apod_video"
+<!--<FrameLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content">-->
+<!--        <VideoView-->
+<!--            android:id="@+id/apod_video"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="300dp"-->
+<!--            android:visibility="invisible"-->
+<!--            />-->
+<!--</FrameLayout>-->
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtube_player"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:visibility="invisible"
-            />
-</FrameLayout>
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/apod_title"
             android:padding="8dp"
-            android:layout_below="@+id/apod_image"
+            android:layout_below="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="TITLE"
