@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.android.volley.RequestQueue;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity  implements DatePickerDialog
  private TextView date_tv;
  private Button btn_apod;
  private Button btn_explore;
+ int YEAR;
+ int MONTH;
+ int DATE;
 public static final String EXTRADATE="extradate";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,10 @@ public static final String EXTRADATE="extradate";
         btn_apod=findViewById(R.id.btn_apod);
         btn_explore=findViewById(R.id.btn_explore);
         Calendar c=Calendar.getInstance();
-        int month=c.get(Calendar.MONTH)+1;
-        date_tv.setText(c.get(Calendar.YEAR)+"-"+month+"-"+c.get(Calendar.DAY_OF_MONTH));
+         YEAR=c.get(Calendar.YEAR);
+         DATE=c.get(Calendar.DAY_OF_MONTH);
+         MONTH=c.get(Calendar.MONTH)+1;
+        date_tv.setText(c.get(Calendar.YEAR)+"-"+MONTH+"-"+c.get(Calendar.DAY_OF_MONTH));
 
         date_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +67,11 @@ public static final String EXTRADATE="extradate";
 
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-int m=month+1;
-        date_tv.setText(year + "-" + m + "-" +dayOfMonth);
+        if(year<=YEAR&&month<=MONTH){
+             int m=month+1;
+        date_tv.setText(year + "-" + m + "-" +dayOfMonth);}
+        else{
+            Toast.makeText(this,"select a date in past",Toast.LENGTH_SHORT).show();
+        }
     }
 }
